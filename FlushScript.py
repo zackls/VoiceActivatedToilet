@@ -15,7 +15,7 @@ if sys.argv[1] == '-c' and len(sys.argv) == 2:
     DATABASE_CHECK_TIMER = 60
 
     #path to voice recognition config file
-    CONFIG_FILE = 'PiAUISuite/VoiceCommand/commands.conf'
+    CONFIG_FILE = '/home/pi/.commands.conf'
 
     currentKeywords = None
     listener = None
@@ -40,10 +40,10 @@ if sys.argv[1] == '-c' and len(sys.argv) == 2:
             #rewrite config file
             with open(CONFIG_FILE, 'w') as config:
                 for phrase in currentKeywords:
-                    config.write('~' + phrase + '==flush ' + phrase.replace(' ', '_') + '\n')
+                    config.write('~' + phrase + '==flush -p ' + phrase.replace(' ', '_') + '\n')
 
             #start listening process
-            listener = subprocess.Popen(['voicecommand -c'], stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
+            listener = subprocess.Popen(['voicecommand -c -q'], stdout=subprocess.PIPE, shell=True, preexec_fn=os.setsid)
             
         time.sleep(DATABASE_CHECK_TIMER)
 

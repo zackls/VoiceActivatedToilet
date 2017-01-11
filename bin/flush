@@ -1,1 +1,1 @@
-python ~/FlushScript.py $1 $2
+python ~/VoiceActivatedToilet/FlushScript.py $1 $2
